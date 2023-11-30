@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+from FFN import train_and_save_model
 
 app = Flask(__name__)
 
@@ -12,8 +13,9 @@ def test():
         return jsonify({"response": "Get Request Called"})
     elif request.method == "POST":
         req_Json = request.json
-        name = req_Json['name']
-        return jsonify({"response": "Hi " + name})
+        #name = req_Json['name']
+        train_and_save_model(req_Json, 'saved_model')
+        return jsonify({"response": "Hi"})
 
 if __name__ == '__main__':
     app.run(debug=True)
