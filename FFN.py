@@ -1,6 +1,7 @@
 import json
 import numpy as np
 import tensorflow as tf
+from flask import jsonify
 
 def train_and_save_model(training_data_json, saved_model_path):
     data = training_data_json
@@ -33,5 +34,11 @@ def train_and_save_model(training_data_json, saved_model_path):
 
     print("Predictions:")
     print(predictions)
-    
 
+    results = {
+        "predictions": predictions.tolist(),
+        "test_loss": float(loss),
+        "test_accuracy": float(accuracy)
+    }
+
+    return jsonify(results)
